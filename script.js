@@ -1,4 +1,4 @@
-console.log('trafic')
+// console.log('trafic')
 
 // const t1 =  {"hex":"84b802","type":"mode_s","r":"JA216J","t":"E170","alt_baro":14775,"squawk":"7352","rr_lat":33.8,"rr_lon":129.7,"alert":0,"spi":0,"mlat":[],"tisb":[],"messages":11857556,"seen":1.2,"rssi":-8.1}
 
@@ -10,23 +10,37 @@ console.log('trafic')
 //=======================================================================================
 
 // CURRENT LOCATION
-// let loc;
+(function listFlights() {
+    let latitude;
+    let longitude;
 
-// function getLocation() {
-//     if (navigator.geolocation) {
-//         navigator.geolocation.getCurrentPosition(showPosition);
-//     } else {
-//         loc = "Geolocation is not supported by this browser.";
-//     }
-// }
+function getLocation() {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(showPosition);
+    } else {
+        loc = "Geolocation is not supported by this browser.";
+    }
+}
 
-// function showPosition(position) {
-//     // console.log(position);
-//     loc  = "Latitude: " + position.coords.latitude + " Longitude: " + position.coords.longitude;
-//     console.log(loc)
-// }
+function showPosition(position) {
+    latitude = position.coords.latitude;
+    longitude = position.coords.longitude;
+    loc  = "Latitude: " + position.coords.latitude + " Longitude: " + position.coords.longitude;
+    // console.log(latitude)
+    // console.log(longitude)
+}
+getLocation()
 
-// getLocation()
+fetch('data.json')
+    .then(res => res.json())
+    .then(dta => {
+        const data = dta;
+
+        console.log(data.aircraft[0])
+})
+
+})();
+
 
 
 //=======================================================================================
@@ -53,14 +67,22 @@ closeM.addEventListener('click', ()=> {
 
 
 // pagination
-const buttons = document.querySelectorAll('.pagination p');
+// const buttons = document.querySelectorAll('.pagination p');
 
-buttons.forEach(el => {
-    el.addEventListener('click', () => {
-       if(el.className === 'active') el.classList.toggle('active');
-       else {
-           buttons.forEach(el => el.classList.remove('active'))
-           el.classList.add('active')
-       }
-    })
-})
+// buttons.forEach(el => {
+//     el.addEventListener('click', () => {
+//        if(el.className === 'active') el.classList.toggle('active');
+//        else {
+//            buttons.forEach(el => el.classList.remove('active'))
+//            el.classList.add('active')
+//        }
+//     })
+// })
+
+
+// =============================
+
+
+
+
+
