@@ -1,23 +1,24 @@
 'use strict'
 
-
-
-// CURRENT LOCATION
-
+// DOM elements
 const tbody = document.querySelector('tbody');
 const modal = document.querySelector('.modal');
 const closeM = document.querySelector('.close-modal');
-    
 
+// Variables
 let myLat;
 let myLon;
 
+let acModel;
+
+
+// Functions
 function getLocation() {
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(showPosition);
     } else {
-        // alert("Geolocation is not supported by this browser.");
-         console.log('nemoze')
+        alert("Geolocation is not supported by this browser.");
+         
     }
 }
 
@@ -26,14 +27,16 @@ function showPosition(position) {
     myLon = +position.coords.longitude;
     renderPage();
 
-    // console.log(myLat)
-    // console.log(myLon)
 }
 
+function renderModal() {
+    const model = document.querySelector('.ac-model');
+    model.textContent = `Aircraft model: ${acModel}`
+}
 
 function renderPage() {
     console.log('renderpage')
-    fetch('data.json')
+    fetch('./data.json')
     .then(res => res.json())
     .then(dta => {
         const data = dta.aircraft;
@@ -75,7 +78,11 @@ function renderPage() {
 
 
             flight.addEventListener('click', () => {
-                modal.classList.add('show')
+                acModel = fl.t
+                renderModal()
+                modal.classList.add('show');
+                console.log(fl)
+                
             })
         })
 
@@ -88,6 +95,8 @@ getLocation()
 // renderPage()
 
 
+
+// Listeners
 closeM.addEventListener('click', ()=> {
     modal.classList.remove('show')
 });
